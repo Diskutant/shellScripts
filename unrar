@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while [ "$1" != '' ]
+  do
+    unrar x $1 && shift
+done
