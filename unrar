@@ -13,6 +13,6 @@ fi
 
 while [ "$1" != '' ] 
 do
-    /usr/local/bin/unrar $PARAMS $1 
+    /usr/local/bin/unrar $PARAMS "$1" 
     shift
 done
