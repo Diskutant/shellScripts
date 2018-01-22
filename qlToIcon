@@ -24,7 +24,7 @@ do
   qlmanage -t $qlArg -s 1024 -o ${TMPDIR} "$target" &>/dev/null
   if [ $sips == "true" ] 
   then
-    sips -p 1024 1024 "$image"
+    sips -p 1024 1024 "$image" &>/dev/null
   fi
 
   # apply the image to itself as an thumbnail icon
