@@ -14,12 +14,12 @@ do
   qlmanage -t -i -s 1024 -o ${TMPDIR} "$target" &>/dev/null
 
   # apply the image to itself as an thumbnail icon
-	fileicon -q set "$target" "$image"
-  
-  # clean up
-	rm "$image"
+  fileicon -q set "$target" "$image"
 
-	echo "$i/$count Icon applied to \"$filename\""
-	((i++))
+  # clean up
+  rm "$image"
+
+  echo "$i/$count Icon applied to \"$filename\""
+  ((i++))
   shift
 done
