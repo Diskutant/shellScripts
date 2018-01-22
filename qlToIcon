@@ -1,24 +1,19 @@
 #!/bin/bash
 
-target=$1
-filename=`basename "$1"`
-image="${TMPDIR}${filename}.png"
-rsrc="${TMPDIR}icn.rsrc"
+while [ "$1" != '' ]
+do
+  target=$1
+  filename=`basename "$1"`
+  image="${TMPDIR}${filename}.png"
+  rsrc="${TMPDIR}icn.rsrc"
 
-# Create a thumbnail from the file preview
-qlmanage -t -s 512 -o ${TMPDIR} "$target"
+  # Create a thumbnail from the file preview
+  qlmanage -t -i -s 1024 -o ${TMPDIR} "$target" $> /dev/null
 
-# apply the image to itself as an thumbnail icon
-sips -i "$image"
-
-# Extract the icon resource
-DeRez -only icns "$image" > $rsrc
-
-# Make the target accept a custom icon
-SetFile -a C "$target"
-
-# Apply the icon resource to the target
-Rez -append $rsrc -o "$target"
-
-# clean up
-rm $rsrc "$image"
+  # apply the image to itself as an thumbnail icon
+	fileicon set "$target" "$image"
+  
+  # clean up
+	rm "$image"
+  shift
+done
