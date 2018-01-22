@@ -5,10 +5,6 @@ filename=`basename "$1"`
 image="${TMPDIR}${filename}.png"
 rsrc="${TMPDIR}icn.rsrc"
 
-echo "Target: " $image
-echo "FileName: " $rsrc
-
-
 # Create a thumbnail from the file preview
 qlmanage -t -s 512 -o ${TMPDIR} "$target"
 
