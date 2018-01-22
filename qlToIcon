@@ -1,5 +1,8 @@
 #!/bin/bash
 
+i=1
+count=$#
+
 while [ "$1" != '' ]
 do
   target=$1
@@ -8,12 +11,15 @@ do
   rsrc="${TMPDIR}icn.rsrc"
 
   # Create a thumbnail from the file preview
-  qlmanage -t -i -s 1024 -o ${TMPDIR} "$target" $> /dev/null
+  qlmanage -t -i -s 1024 -o ${TMPDIR} "$target" &>/dev/null
 
   # apply the image to itself as an thumbnail icon
-	fileicon set "$target" "$image"
+	fileicon -q set "$target" "$image"
   
   # clean up
 	rm "$image"
+
+	echo "$i/$count Icon applied to \"$filename\""
+	((i++))
   shift
 done
