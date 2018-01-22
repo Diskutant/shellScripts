@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [ "$1" == '-p' ]
+then
+  qlArg=""
+  sips="true"
+  shift
+else
+  qlArg="-i"
+  sips="false"
+fi
+
 i=1
 count=$#
 
@@ -11,7 +21,11 @@ do
   rsrc="${TMPDIR}icn.rsrc"
 
   # Create a thumbnail from the file preview
-  qlmanage -t -i -s 1024 -o ${TMPDIR} "$target" &>/dev/null
+  qlmanage -t $qlArg -s 1024 -o ${TMPDIR} "$target" &>/dev/null
+  if [ $sips == "true" ] 
+  then
+    sips -p 1024 1024 "$image"
+  fi
 
   # apply the image to itself as an thumbnail icon
   fileicon -q set "$target" "$image"
