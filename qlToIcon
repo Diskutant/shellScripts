@@ -19,7 +19,7 @@ done
 if [ -z ${force+x} ]; then force=false; fi
 if [ -z ${preview+x} ]; then preview=false; fi
 if [ -z ${quiet+x} ]; then quiet=0; fi
-if [ -z ${size+x} ]; then qlArgs="$qlArgs -s 1024"; else qlArgs="$qlArgs -s $size"; fi
+if [ -z ${size+x} ]; then qlArgs="$qlArgs -s 1024" ; size=1024 ; else qlArgs="$qlArgs -s $size"; fi
 
 if [ "$preview" = false ] ; then qlArgs="$qlArgs -i" ; sips=false; else sips=true; fi
 # --- end set Options ---
