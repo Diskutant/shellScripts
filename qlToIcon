@@ -20,6 +20,9 @@ while [[ "$1" = "-"* ]]
         shift
         size=$1
       ;;
+      -q|--quiet)
+        quiet=1
+      ;;
     esac
     shift
   done
@@ -27,6 +30,7 @@ while [[ "$1" = "-"* ]]
   # --- set default params if they aren't set ---
   if [ -z ${force+x} ]; then force=false; fi
   if [ -z ${preview+x} ]; then preview=false; fi
+  if [ -z ${quiet+x} ]; then quiet=0; fi
   if [ -z ${size+x} ]; then qlArgs="$qlArgs -s 1024"; else qlArgs="$qlArgs -s $size"; fi
 
   if [ "$preview" = false ] ; then
@@ -36,16 +40,13 @@ while [[ "$1" = "-"* ]]
   fi
 # --- end set Options ---
 
-i=1
-applied=0
-skipped=0
-count=$#
+i=1 applied=0 skipped=0 count=$#
 
 # --- main loop ---
 while [ "$1" != '' ] ; do
   filename=`basename "$1"`
   if ! $force && fileicon -q test "$1"; then
-      echo "$i/$count nothing to do for \"$filename\""
+      (( quiet )) || echo "$i/$count nothing to do for \"$filename\""
       ((i++))
       ((skipped++))
       shift
@@ -68,13 +69,14 @@ while [ "$1" != '' ] ; do
   # clean up
   #rm "$tmpImage"
 
-  echo "$i/$count Icon applied to \"$filename\""
+  (( quiet )) || echo "$i/$count Icon applied to \"$filename\""
   ((i++))
   ((applied++))
   shift
 done
 
-echo "=====Results====="
-echo " Applied $applied icons"
-echo " Skipped $skipped files"
-echo "================="
+
+(( quiet )) || echo "=====Results====="
+(( quiet )) || echo " Applied $applied icons"
+(( quiet )) || echo " Skipped $skipped files"
+(( quiet )) || echo "================="
